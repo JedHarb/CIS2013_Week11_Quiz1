@@ -12,7 +12,6 @@ int main() {
 	int chosenRow;
 	int chosenComputer;
 	int chosenGrade;
-	int j;
 	int computerCount = 0;
 
 	cout << "How many rows are there? ";
@@ -32,11 +31,12 @@ int main() {
 
 	computerGradeStorage = new int[totalComputers];
 
-	for (int b = 0; b < totalComputers; b++) {
+	for (int b = 0; b <= totalComputers; b++) {
 		computerGradeStorage[b] = 101;
-		cout << computerGradeStorage[b] << endl;
+		//cout << computerGradeStorage[b] << endl;
 	}
 
+	cout << endl;
 	for (int y = 1; y<=computerRows; y++) {
 		cout << y << ": ";
 		for (int x = 0; x<a[y-1]; x++) {
@@ -45,6 +45,7 @@ int main() {
 		cout << endl;
 	}
 
+	cout << endl;
 	while (keepAlive == 'y') {
 		cout << "Pick a row: ";
 		cin >> chosenRow;
@@ -60,26 +61,32 @@ int main() {
 		}
 		cout << "What is the grade of this computer? ";
 		cin >> chosenGrade;
-
+		while (chosenGrade < 0 || chosenGrade > 100) {
+			cout << "Try again: ";
+			cin >> chosenGrade;
+		}
+		cout << endl;
+		computerCount = 0;
 		for (int x = 0; x < chosenRow - 1; x++) {
 			computerCount += a[x];
 		}
 		computerCount += chosenComputer;
 		computerGradeStorage[computerCount] = chosenGrade;
-
+		computerCount = 0;
 		for (int y = 1; y <= computerRows; y++) {
 			cout << y << ": ";
 			for (int x = 0; x < a[y - 1]; x++) {
-				if (computerGradeStorage[computerCount] != 101) {
-					cout << computerGradeStorage[computerCount] << " ";
+					computerCount++;
+				if (computerGradeStorage[computerCount] == 101) {
+					cout << " empty";
 				}
 				else {
-					cout << " empty";
+					cout << " " << computerGradeStorage[computerCount];
 				}
 			}
 			cout << endl;
 		}
-		cout << "Type 'y' to continue: ";
+		cout << endl << "Type 'y' to continue: ";
 		cin >> keepAlive;
 	}
 	return 0;
